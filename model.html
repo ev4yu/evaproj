@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diabetes Risk Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'VT323', monospace;
+      background-color: #f5f5dc; /* muted cream */
+      color: #3d405b;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #e07a5f;
+      padding: 1.5rem;
+      text-align: center;
+      color: #fff;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.8rem;
+      border-bottom: 4px solid #3d405b;
+      box-shadow: 4px 4px 0 #aaa;
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.9rem;
+      color: #3d405b;
+      background-color: #d0f0c0; /* muted green */
+      border: 2px solid #556b2f;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 2px 2px 0 #aaa;
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    .back-btn:hover {
+      transform: translate(-2px,-2px);
+      background-color: #c0e0a0;
+      color: #fff;
+      box-shadow: 4px 4px 0 #888;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      flex: 1;
+    }
+
+    .hero {
+      background-color: #f2cc8f;
+      border: 3px solid #3d405b;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 6px 6px 0 #aaa;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero h2 {
+      font-family: 'Press Start 2P', cursive;
+      color: #556b2f;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-family: 'Courier New', Courier, monospace;
+      color: #3d405b;
+      font-size: 1rem;
+    }
+
+    .form-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: #3d405b;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .feature-label {
+      color: #556b2f;
+      text-decoration: underline dotted;
+      cursor: pointer;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .feature-label:hover {
+      color: #3d405b;
+      text-decoration: underline;
+    }
+
+    input[type="number"] {
+      font-family: 'VT323', monospace;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 2px solid #3d405b;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input[type="number"]:focus {
+      border-color: #556b2f;
+    }
+
+    button {
+      display: block;
+      margin: 1rem auto 2rem auto;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.9rem;
+      background-color: #d0f0c0;
+      color: #3d405b;
+      border: 2px solid #556b2f;
+      border-radius: 4px;
+      padding: 0.7rem 1.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 2px 2px 0 #aaa;
+      transition: transform 0.1s, background-color 0.2s;
+    }
+    button:hover {
+      transform: translate(-2px,-2px);
+      background-color: #c0e0a0;
+      color: #fff;
+      box-shadow: 4px 4px 0 #888;
+    }
+
+    .report {
+      background-color: #fff8dc;
+      border: 3px solid #3d405b;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 6px 6px 0 #aaa;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .report-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .report-section p {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #3d405b;
+    }
+
+    #predictedOutcome {
+      font-family: 'Press Start 2P', cursive; /* revert to previous font */
+      font-size: 2rem;                 /* large like before */
+      font-weight: bold;
+      display: block;
+      margin-top: 0.3rem;
+      color: inherit;
+    }
+
+    .report-section h4 {
+      font-family:  'VT323', monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 0.7rem;
+      color: #3d405b;
+    }
+
+    #disclaimer {
+      font-family: 'Courier New', Courier, monospace;
+      font-style: italic;
+      color: #3d405b;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem; /* Increased table font size */
+    }
+
+    th, td {
+      padding: 0.7rem 1.5rem; /* Increased padding for bigger cells */
+      border: 2px solid #3d405b;
+      text-align: center;
+      font-size: 1.1rem; /* Increased font size for table cells */
+    }
+
+    th {
+      background-color: #d0f0c0;
+      color: #3d405b;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.3);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal.active { display: flex; }
+
+    .modal-content {
+      background: #fff8dc;
+      border: 3px solid #3d405b;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      max-width: 320px;
+      text-align: center;
+      box-shadow: 4px 4px 0 #aaa;
+      font-family: 'VT323', monospace;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.3rem;
+      right: 0.3rem;
+      font-size: 1.2rem;
+      color: #556b2f;
+      background: #d0f0c0;
+      border: 2px solid #556b2f;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      font-weight: bold;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .modal-close:hover {
+      background: #c0e0a0;
+      transform: translate(-1px,-1px);
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #3d405b;
+      font-family: 'Press Start 2P', cursive;
+    }
+
+    .modal-example {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #3d405b;
+      background: #f2cc8f;
+      border-radius: 6px;
+      padding: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #3d405b;
+      color: white;
+      font-family: 'Press Start 2P', cursive;
+      font-weight: 600;
+      border-top: 4px solid #aaa;
+      box-shadow: 4px -4px 0 #aaa;
+      margin-top: auto;
+    }
+
+    @media (max-width: 480px) {
+      .form-group { grid-template-columns: 1fr; }
+      table th, table td { font-size: 0.75rem; padding: 0.3rem; }
+      .modal-content { max-width: 90vw; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Diabetes Risk Predictor
+    <a href="/" class="back-btn">🏠 Home</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Enter Your Info</h2>
+      <p>Click a feature name for a definition and example before predicting your diabetes risk!</p>
+    </section>
+
+    <div class="form-group">
+      <label>
+        <span class="feature-label" onclick="showFeaturePopup('Pregnancies')">Pregnancies</span>
+        <input type="number" id="Pregnancies" min="0" required />
+      </label>
+      <label>
+        <span class="feature-label" onclick="showFeaturePopup('Glucose')">Glucose</span>
+        <input type="number" id="Glucose" min="0" required />
+      </label>
+      <label>
+        <span class="feature-label" onclick="showFeaturePopup('BloodPressure')">Blood Pressure</span>
+        <input type="number" id="BloodPressure" min="0" required />
+      </label>
+      <label>
+        <span class="feature-label" onclick="showFeaturePopup('SkinThickness')">Skin Thickness</span>
+        <input type="number" id="SkinThickness" min="0" required />
+      </label>
+      <label>
+        <span class="feature-label" onclick="showFeaturePopup('Insulin')">Insulin</span>
+        <input type="number" id="Insulin" min="0" required />
+      </label>
+      <label>
+        <span class="feature-label" onclick="showFeaturePopup('BMI')">BMI</span>
+        <input type="number" id="BMI" step="0.1" min="0" required />
+      </label>
+      <label>
+        <span class="feature-label" onclick="showFeaturePopup('Age')">Age</span>
+        <input type="number" id="Age" min="0" required />
+      </label>
+    </div>
+
+    <button onclick="getPrediction()">✨ Predict Risk ✨</button>
+
+    <div class="report" id="report" style="display:none;">
+      <div class="report-section">
+        <p><strong>Predicted Outcome:</strong></p>
+        <span id="predictedOutcome"></span>
+      </div>
+      <div class="report-section">
+        <h4>Feature Breakdown</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody id="featureTable"></tbody>
+        </table>
+      </div>
+      <p id="disclaimer"></p>
+    </div>
+  </main>
+
+  <!-- Feature Info Modal -->
+  <div class="modal" id="featureModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeFeaturePopup()">&times;</button>
+      <div class="modal-title" id="modalTitle"></div>
+      <div id="modalDesc"></div>
+      <div class="modal-example" id="modalExample"></div>
+    </div>
+  </div>
+
+  <footer>
+    Created by Eva Yu · STEM League Tech Innovators Internship · 2025
+  </footer>
+
+  <script>
+    // Feature definitions (same as before)
+    const featurePopups = {
+      Pregnancies: { title: "Pregnancies", desc: "How many times you have been pregnant.", example: "Example: If someone has been pregnant twice, enter 2." },
+      Glucose: { title: "Glucose", desc: "Plasma glucose concentration after 2 hours.", example: "Example: A typical value might be 120." },
+      BloodPressure: { title: "Blood Pressure", desc: "Diastolic blood pressure (lower number) in mm Hg.", example: "Example: 80 if your BP is 120/80." },
+      SkinThickness: { title: "Skin Thickness", desc: "Triceps skin fold thickness in mm.", example: "Example: 23 mm is typical." },
+      Insulin: { title: "Insulin", desc: "2-hour serum insulin in μU/ml.", example: "Example: 85 μU/ml." },
+      BMI: { title: "BMI", desc: "Body Mass Index = weight/height².", example: "Example: 70kg / (1.75m)² ≈ 22.9." },
+      Age: { title: "Age", desc: "Age in years.", example: "Example: 35." }
+    };
+
+    function showFeaturePopup(feature) {
+      const modal = document.getElementById("featureModal");
+      document.getElementById("modalTitle").textContent = featurePopups[feature].title;
+      document.getElementById("modalDesc").textContent = featurePopups[feature].desc;
+      document.getElementById("modalExample").textContent = featurePopups[feature].example;
+      modal.classList.add("active");
+    }
+    function closeFeaturePopup() {
+      document.getElementById("featureModal").classList.remove("active");
+    }
+    window.addEventListener("click", function(e) {
+      const modal = document.getElementById("featureModal");
+      if(e.target === modal) closeFeaturePopup();
+    });
+
+    async function getPrediction() {
+      document.getElementById("predictedOutcome").textContent = "Loading...";
+      document.getElementById("report").style.display = "block";
+      document.getElementById("disclaimer").textContent = "";
+
+      try {
+        const features = [
+          parseFloat(document.getElementById("Pregnancies").value),
+          parseFloat(document.getElementById("Glucose").value),
+          parseFloat(document.getElementById("BloodPressure").value),
+          parseFloat(document.getElementById("SkinThickness").value),
+          parseFloat(document.getElementById("Insulin").value),
+          parseFloat(document.getElementById("BMI").value),
+          parseFloat(document.getElementById("Age").value)
+        ];
+
+        const response = await fetch('/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ features })
+        });
+
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        const result = await response.json();
+        if (!result.prediction || typeof result.prediction[0] !== "number") throw new Error("Invalid prediction received");
+
+        const predictedClass = result.prediction[0];
+        const predictedText = predictedClass === 1 ? "Positive" : "Negative";
+        const color = predictedText === "Positive" ? "#e07a5f" : "#556b2f";
+        const outcome = document.getElementById("predictedOutcome");
+        outcome.textContent = predictedText;
+        outcome.style.color = color;
+
+        const featureInfo = [
+          { name: "Pregnancies", tooltip: featurePopups.Pregnancies.desc },
+          { name: "Glucose", tooltip: featurePopups.Glucose.desc },
+          { name: "Blood Pressure", tooltip: featurePopups.BloodPressure.desc },
+          { name: "Skin Thickness", tooltip: featurePopups.SkinThickness.desc },
+          { name: "Insulin", tooltip: featurePopups.Insulin.desc },
+          { name: "BMI", tooltip: featurePopups.BMI.desc },
+          { name: "Age", tooltip: featurePopups.Age.desc }
+        ];
+        const featureTable = document.getElementById("featureTable");
+        featureTable.innerHTML = "";
+        features.forEach((f,i)=>{
+          const row = document.createElement("tr");
+          row.innerHTML = `<td title="${featureInfo[i].tooltip}">${featureInfo[i].name}</td><td>${f}</td>`;
+          featureTable.appendChild(row);
+        });
+
+        document.getElementById("disclaimer").textContent = "Disclaimer: This is not a professional medical diagnosis. Consult a healthcare professional for medical advice.";
+      } catch (err) {
+        console.error(err);
+        const outcome = document.getElementById("predictedOutcome");
+        outcome.textContent = "Error";
+        outcome.style.color = "#e07a5f";
+        document.getElementById("disclaimer").textContent = err.message;
+      }
+    }
+  </script>
+</body>
+</html>

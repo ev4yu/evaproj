@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diabetes Insights</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'VT323', monospace;
+      background-color: #f5f5dc; /* muted cream */
+      color: #3d405b;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #e07a5f;
+      padding: 1.5rem;
+      text-align: center;
+      color: #fff;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.8rem;
+      border-bottom: 4px solid #3d405b;
+      box-shadow: 4px 4px 0 #aaa;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      flex: 1;
+    }
+
+    .hero {
+      background-color: #f2cc8f;
+      border: 3px solid #3d405b;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 6px 6px 0 #aaa;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: 'Press Start 2P', cursive;
+      color: #556b2f; /* muted green */
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #3d405b;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .card {
+      border: 2px solid #3d405b;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 4px 4px 0 #aaa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      font-weight: 600;
+      background-color: #fff8dc; /* muted light yellow */
+    }
+
+    .card h2 {
+      font-family: 'Press Start 2P', cursive;
+      margin-bottom: 0.5rem;
+    }
+
+    .ml-btn-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .ml-btn-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.2rem;
+      font-family: 'Press Start 2P', cursive;
+      font-weight: 700;
+      color: #3d405b;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.01em;
+    }
+
+    .ml-btn-emoji {
+      font-size: 2.4rem; /* 2x the text size (1.2rem * 2) */
+      line-height: 1;
+      margin-bottom: 0.1em;
+      display: block;
+      text-align: center;
+    }
+
+    .card p {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .cute-btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background-color: #d0f0c0; /* muted green */
+      color: #3d405b;
+      font-family: 'Courier New', Courier, monospace; /* Courier New font */
+      font-size: 0.9rem;
+      border: 2px solid #556b2f;
+      border-radius: 4px;
+      box-shadow: 2px 2px 0 #aaa;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.1s;
+    }
+
+    .cute-btn:hover {
+      transform: translate(-2px,-2px);
+      background-color: #c0e0a0;
+      color: #fff;
+      box-shadow: 4px 4px 0 #888;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #3d405b;
+      color: white;
+      font-family: 'Press Start 2P', cursive;
+      font-weight: 600;
+      margin-top: auto;
+      border-top: 4px solid #aaa;
+      box-shadow: 4px -4px 0 #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Diabetes Insights: A Data Journey
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Predictive Modeling + Real Stories</h1>
+      <p>
+        Discover how machine learning and community voices can help us better understand diabetes risk. Explore trends, try the risk predictor, and learn through fun, interactive visualizations!
+      </p>
+    </section>
+
+    <section class="features">
+      <div class="card">
+        <div class="ml-btn-container">
+          <span class="ml-btn-label">
+            ML Risk Predictor
+          </span>
+          <span class="ml-btn-emoji" style="margin: 0.7rem 0;">🤖</span>
+          <a href="/model" class="cute-btn">✨ Click to Try! ✨</a>
+        </div>
+        <p style="margin-top:1rem;">Enter your info to find out your diabetes risk instantly.</p>
+      </div>
+      <div class="card">
+        <h2>
+          Global Trends
+        </h2>
+        <span class="ml-btn-emoji" style="margin: 0.7rem 0;">🌍</span>
+        <p>See how diabetes affects different ages, regions, and genders worldwide.</p>
+      </div>
+      <div class="card">
+        <h2>
+          Real Stories & Sentiment
+        </h2>
+        <span class="ml-btn-emoji" style="margin: 0.7rem 0;">💬</span>
+        <p>Read what people are saying about living with diabetes. Our sentiment analysis gives a real look into shared emotions and challenges.</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Created by Eva Yu · STEM League Tech Innovators Internship · 2025
+  </footer>
+</body>
+</html>
