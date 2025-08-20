@@ -29,4 +29,5 @@ def serve_model():
     return send_from_directory("static", "model.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port = int(os.environ.get("PORT", 5000))  # default to 5000 locally
+    app.run(host="0.0.0.0", port=port))
