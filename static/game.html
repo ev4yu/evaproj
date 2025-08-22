@@ -557,7 +557,7 @@
       <div class="toolbar">
         <button class="tool" id="undoBtn">⏪ Undo</button>
         <button class="tool" id="timelineBtn">🗂️ Timeline</button>
-        <button class="tool" id="reviewBtn">🧠 Review Tips</button>
+
         <button class="tool" id="restartBtn">🔄 Restart</button>
       </div>
       
@@ -1063,9 +1063,7 @@
     return {
       score,
       html: `
-        <p>${message} You made ${goodChoices} healthy choices out of ${MAX_STEPS}.</p>
-        <p>Final stats: Glucose ${state.glucose}%, Energy ${state.energy}%, Stress ${state.stress}%</p>
-        <p>Click "Review Breakdown" to see what you learned.</p>
+        <p>${message} You made ${goodChoices} healthy choices out of ${MAX_STEPS}. Click "Review Breakdown" to see what you learned.</p>
       `
     };
   }
@@ -1082,28 +1080,46 @@
     playSound(clickSound);
   }
   
-  function openReview() {
-    const summary = summarizeDay();
-    reviewBody.innerHTML = summary.html;
+ function openReview() {
+  // Clear previous content
+  reviewBody.innerHTML = '';
+  
+  if (state.mistakes.length > 0) {
+    // Create and add the areas to improve section
+    const improveSection = document.createElement('div');
+    improveSection.innerHTML = `<h3 class="modal-title">Areas to Improve</h3>`;
     
-    if (state.mistakes.length > 0) {
-      reviewBody.innerHTML += `<h4>Areas to improve:</h4><ul>`;
-      state.mistakes.forEach(mistake => {
-        reviewBody.innerHTML += `
-          <li>
-            <strong>${mistake.title}:</strong> ${mistake.choice}<br>
-            <em>${mistake.explanation}</em>
-          </li>
-        `;
-      });
-      reviewBody.innerHTML += `</ul>`;
-    } else {
-      reviewBody.innerHTML += `<p>Perfect choices throughout the day! 🎉</p>`;
-    }
+    const list = document.createElement('ul');
+    list.style.marginTop = '1rem';
+    list.style.paddingLeft = '1.5rem';
     
-    reviewModal.showModal();
-    playSound(clickSound);
+    state.mistakes.forEach(mistake => {
+      const li = document.createElement('li');
+      li.style.marginBottom = '1rem';
+      li.innerHTML = `
+        <strong>${mistake.title}:</strong> ${mistake.choice}<br>
+        <em>${mistake.explanation}</em>
+      `;
+      list.appendChild(li);
+    });
+    
+    improveSection.appendChild(list);
+    reviewBody.appendChild(improveSection);
+  } else {
+    // Show perfect score message
+    reviewBody.innerHTML = `
+      <div style="text-align: center; padding: 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+        <h3 class="modal-title">Perfect Choices!</h3>
+        <p>You made all the right decisions throughout the day! Excellent diabetes management!</p>
+      </div>
+    `;
   }
+  
+  // Show the modal
+  reviewModal.showModal();
+  playSound(clickSound);
+}
   
   function restart() {
     state.step = 0;
