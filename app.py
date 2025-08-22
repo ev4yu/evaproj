@@ -37,6 +37,10 @@ def sentiment():
 def trends():
     return send_from_directory("static", "trends.html")
 
+@app.route("/game")
+def game():
+    return send_from_directory("static", "game.html")
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # fallback to 5000 locally
     app.run(host="0.0.0.0", port=port)
