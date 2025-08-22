@@ -41,6 +41,7 @@
       padding: 2rem;
       box-shadow: 6px 6px 0 #aaa;
       text-align: center;
+      animation: bob 3s ease-in-out infinite;
     }
 
     .hero h1 {
@@ -146,6 +147,105 @@
       border-top: 4px solid #aaa;
       box-shadow: 4px -4px 0 #aaa;
     }
+
+    @keyframes bob {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Game Launch Container Styles */
+    .divider-button {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 20px 0;
+    }
+    .divider-button img {
+      width: 400px;
+      height: auto;
+      cursor: pointer;
+    }
+
+    .game-launch-container {
+      background-color: #556b2f;
+      border: 3px solid #3d405b;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      text-align: center;
+      box-shadow: 6px 6px 0 #aaa;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .game-title {
+      font-family: 'Press Start 2P', cursive;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 0 #3d405b;
+    }
+
+    .game-description {
+      font-family: 'Courier New', Courier, monospace;
+      color: white;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .game-btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #e07a5f;
+      color: white;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      border: 3px solid #3d405b;
+      border-radius: 8px;
+      box-shadow: 4px 4px 0 #888;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 #666;
+      background-color: #d86a50;
+    }
+
+    .game-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 #888;
+    }
+
+    .game-btn::after {
+      content: '🎮';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .game-btn:hover::after {
+      right: 15px;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -179,19 +279,31 @@
         </div>
 
         <p style="margin-top:1rem;">See how diabetes affects different ages, regions, and genders worldwide.</p>
-      
       </div>
 
       <div class="card">
-  <div class="ml-btn-container">
-    <span class="ml-btn-label">Sentiment Analysis</span>
-    <span class="ml-btn-emoji">💬</span>
-    <a href="/sentiment" class="cute-btn">✨ Explore! ✨</a>
-  </div>
-  <p style="margin-top:1rem;">See what real diabetes communities are saying through our word cloud and sentiment charts.</p>
-</div>
-
+        <div class="ml-btn-container">
+          <span class="ml-btn-label">Sentiment Analysis</span>
+          <span class="ml-btn-emoji">💬</span>
+          <a href="/sentiment" class="cute-btn">✨ Explore! ✨</a>
+        </div>
+        <p style="margin-top:1rem;">See what real diabetes communities are saying through our word cloud and sentiment charts.</p>
+      </div>
     </section>
+
+
+<!-- Divider Button -->
+<div class="divider-button">
+<a href="#game">
+
+</a>
+</div>
+    <!-- Game Launch Container -->
+    <div id="game" class="game-launch-container">
+      <h2 class="game-title">DAY-IN-THE-LIFE: DIABETES CHOICES</h2>
+      <p class="game-description">Experience a day managing diabetes through interactive choices. Make decisions about food, activity, and medication while tracking your glucose, energy, and stress levels.</p>
+      <a href="/game" class="game-btn">LAUNCH GAME</a>
+    </div>
   </main>
 
   <footer>
