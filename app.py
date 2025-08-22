@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import joblib
 import os
 
+
 import joblib
 
 # After training
@@ -27,6 +28,14 @@ def serve_index():
 @app.route("/model", methods=["GET"])
 def serve_model():
     return send_from_directory("static", "model.html")
+
+@app.route("/sentiment")
+def sentiment():
+    return send_from_directory("static", "sentiment.html")
+
+@app.route("/trends")
+def trends():
+    return send_from_directory("static", "trends.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # fallback to 5000 locally
