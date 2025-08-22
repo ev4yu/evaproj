@@ -93,17 +93,28 @@ header::after {
       margin: 0 auto;
       flex: 1;
     }
+.hero {
+  background-color: #f2cc8f;
+  border: 3px solid #3d405b;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 6px 6px 0 #aaa;
+  text-align: center;
 
-    .hero {
-      background-color: var(--accent2);
-      border: 3px solid var(--secondary);
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 6px 6px 0 #aaa;
-      text-align: center;
-      margin-bottom: 2rem;
-      position: relative;
-    }
+  /* 👇 add these */
+  animation: bob 3s ease-in-out infinite;
+  margin-bottom: 2rem;
+}
+
+@keyframes bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 
     .hero h1 {
       font-family: 'Press Start 2P', cursive;
@@ -478,7 +489,7 @@ header::after {
     </section>
 
     <div class="intro-blurb">
-      <h2>About This Model</h2>
+      <h2 style="text-align: center";>About This Model</h2>
       <p>This machine learning model analyzes key health indicators to predict diabetes risk. It was trained on clinical data and considers factors like glucose levels, BMI, age, and more. While not a medical diagnosis, it can help identify potential risk factors and guide healthier lifestyle choices.</p>
     </div>
 
